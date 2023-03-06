@@ -1,4 +1,7 @@
 <?php
+spl_autoload_register(function ($classname) {
+    require $filename = '../app/model/' . ucfirst($classname) . '.php';
+});
 require_once 'config.php';
 require_once 'functions.php';
 require_once 'Database.php';

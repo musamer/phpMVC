@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * Model trait
+ */
 trait Model
 {
     use Database;

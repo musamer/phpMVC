@@ -1,13 +1,14 @@
 <?php
 
+/**
+ * Conntroller Home class  
+ */
 class Home extends Controller
 {
     public function index()
     {
-        $model = new Model();
-        $arr['name'] = 'ali';
-        $arr['email'] = 'a@a.com';
-        $result = $model->update(1, $arr);
+        $user = new User;
+        $result = $user->where(['id' => 3]);
         show($result);
         $this->view('home');
     }
