@@ -1,9 +1,7 @@
 <?php
-class Model
+trait Model
 {
     use Database;
-
-    protected $table  = 'users';
     protected $limit  = 10;
     protected $offset = 0;
 
@@ -46,11 +44,30 @@ class Model
     }
     public function insert($data)
     {
+        $keys = array_keys($data);
+        $query = "INSERT INTO $this->table (" . implode(' , ', $keys) . ") VALUES (:" . implode(' , :', $keys) . ") ";
+        $this->query($query, $data);
+        return false;
     }
     public function update($id, $data, $id_colum = 'id')
     {
+
+        $query = "UPDATE $this->table SET  ";
+        $keys = array_keys($data);
+        foreach ($keys as $key) {
+            $query .= $key . " = :" . $key . ", ";
+        }
+        $query = trim($query, ", ");
+        $query .= " WHERE $id_colum =:$id_colum ";
+        $data[$id_colum] = $id;
+        $this->query($query, $data);
+        return false;
     }
     public function delete($id, $id_colum = 'id')
     {
+        $data[$id_colum] = $id;
+        $query = "DELETE FROM $this->table WHERE $id_colum =:$id_colum ";
+        $this->query($query, $data);
+        return false;
     }
 }

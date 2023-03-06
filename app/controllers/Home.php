@@ -5,11 +5,10 @@ class Home extends Controller
     public function index()
     {
         $model = new Model();
-        $arr['id'] = 1;
-        $arr['name'] = 'sds';
-        $result = $model->first($arr);
+        $arr['name'] = 'ali';
+        $arr['email'] = 'a@a.com';
+        $result = $model->update(1, $arr);
         show($result);
-        echo 'this is home controller';
         $this->view('home');
     }
 }
