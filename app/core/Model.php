@@ -8,12 +8,18 @@ trait Model
     use Database;
     protected $limit  = 10;
     protected $offset = 0;
-
-    public function where($data, $data_not = [])
+    protected $orderType = 'DESC';
+    protected $orderColum = 'id';
+    public function findAll()
+    {
+        $query = "SELECT * FROM $this->table ORDER BY $this->orderColum $this->orderType  LIMIT $this->limit OFFSET $this->offset ";
+        return $this->query($query);
+    }
+    public function where($data, $dataNot = [])
     {
         $query = "SELECT * FROM $this->table WHERE ";
         $keys = array_keys($data);
-        $keys_not = array_keys($data_not);
+        $keys_not = array_keys($dataNot);
         foreach ($keys as $key) {
             $query .= $key . " = :" . $key . " && ";
         }
@@ -22,15 +28,15 @@ trait Model
             $query .= $key . " != :" . $key . " && ";
         }
         $query = trim($query, " && ");
-        $query .= " LIMIT $this->limit OFFSET $this->offset ";
-        $data = array_merge($data, $data_not);
+        $query .= "ORDER BY $this->orderColum $this->orderType LIMIT $this->limit OFFSET $this->offset ";
+        $data = array_merge($data, $dataNot);
         return $this->query($query, $data);
     }
-    public function first($data, $data_not = [])
+    public function first($data, $dataNot = [])
     {
         $query = "SELECT * FROM $this->table WHERE ";
         $keys = array_keys($data);
-        $keys_not = array_keys($data_not);
+        $keys_not = array_keys($dataNot);
         foreach ($keys as $key) {
             $query .= $key . " = :" . $key . " && ";
         }
@@ -40,7 +46,7 @@ trait Model
         }
         $query = trim($query, " && ");
         $query .= " LIMIT $this->limit OFFSET $this->offset ";
-        $data = array_merge($data, $data_not);
+        $data = array_merge($data, $dataNot);
         $result = $this->query($query, $data);
         if ($result)
             return $result[0];

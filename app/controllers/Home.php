@@ -8,7 +8,7 @@ class Home extends Controller
     public function index()
     {
         $user = new User;
-        $result = $user->where(['id' => 3]);
+        $result = $user->findAll();
         show($result);
         $this->view('home');
     }
