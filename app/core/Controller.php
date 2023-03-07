@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * Controller trait
+ */
 trait Controller
 {
     public function view($name)

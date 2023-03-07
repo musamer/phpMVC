@@ -1,5 +1,8 @@
 
 <?php
+/**
+ * App class
+ */
 class App
 {
     private $controller = 'Home';

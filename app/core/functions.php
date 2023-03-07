@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * customs function 
+ */
 function show($staff)
 {
     echo '<pre>';
