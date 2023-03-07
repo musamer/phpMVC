@@ -54,6 +54,15 @@ trait Model
     }
     public function insert($data)
     {
+        /** Remove unwanted data */
+        if (empty($this->allowedColums)) {
+            foreach ($data as $key => $value) {
+                if (!in_array($key, $this->allowColums)) {
+                    unset($data[$key]);
+                }
+            }
+        }
+        
         $keys = array_keys($data);
         $query = "INSERT INTO $this->table (" . implode(' , ', $keys) . ") VALUES (:" . implode(' , :', $keys) . ") ";
         $this->query($query, $data);
@@ -61,6 +70,14 @@ trait Model
     }
     public function update($id, $data, $id_colum = 'id')
     {
+        /** Remove unwanted data */
+        if (empty($this->allowedColums)) {
+            foreach ($data as $key => $value) {
+                if (!in_array($key, $this->allowColums)) {
+                    unset($data[$key]);
+                }
+            }
+        }
 
         $query = "UPDATE $this->table SET  ";
         $keys = array_keys($data);
