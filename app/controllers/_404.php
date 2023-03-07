@@ -3,8 +3,10 @@
 /**
  * Not Found Page Class
  */
-class _404 extends Controller
+class _404
 {
+    use Controller;
+
     public function index()
     {
         echo 'Page Not Found';
