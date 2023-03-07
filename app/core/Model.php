@@ -1,5 +1,5 @@
 <?php
-
+defined('ROOTPATH') or exit('<h1 style="margin-top:20px;text-align:center">Access Denied!</h1>');
 /**
  * Model trait
  */
@@ -62,7 +62,7 @@ trait Model
                 }
             }
         }
-        
+
         $keys = array_keys($data);
         $query = "INSERT INTO $this->table (" . implode(' , ', $keys) . ") VALUES (:" . implode(' , :', $keys) . ") ";
         $this->query($query, $data);
